@@ -10,7 +10,7 @@ def home(request):
         'plans': plans,
         'functionalities': functionalities,
         }
-    return render(request, 'home.html', context) 
+    return render(request, 'home.html', context)
 
 class PlanDetail(generic.DetailView):
     model = Plan

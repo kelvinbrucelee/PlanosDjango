@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 from django.db.models import signals
@@ -6,8 +7,8 @@ from django.template.defaultfilters import slugify
 
 ## -- Base for other models -- ##
 class Base(models.Model):
-    price_student = models.DecimalField(max_digits=8, decimal_places=2)
-    price_fixed = models.DecimalField(max_digits=8, decimal_places=2)
+    price_student = models.DecimalField("Preço por Estudante",max_digits=8, decimal_places=2)
+    price_fixed = models.DecimalField("Preço Fixo",max_digits=8, decimal_places=2)
 
     class Meta:
         abstract = True
@@ -26,18 +27,18 @@ class Functionality(Base):
 ## -- Plan --##
 class Plan(Base):
     name = models.CharField('Nome',max_length=100)
-    functionalities = models.ManyToManyField(Functionality)
-    functionalities_extras = models.ManyToManyField(Functionality, blank=True, related_name="functionalities_extras")
+    functionalities = models.ManyToManyField(Functionality, verbose_name='Funcionalidades', related_name='functionalities')
+    functionalities_extras = models.ManyToManyField(Functionality, blank=True, verbose_name='Funcionalidades Extras', related_name="functionalities_extras")
     highlight = models.BooleanField('Destaca?', default=False)
     slug = models.SlugField('Slug', max_length=100, blank=True, editable=False)
-
+    
     class Meta:
         verbose_name_plural = 'Planos'
         ordering = ("id",)
 
     def __str__(self):
         return self.name
-
+  
     ## -- Listing Features -- ##
     def functionalities_list(self):
         return " / ".join([str(functionality.name) for functionality in self.functionalities.all()])

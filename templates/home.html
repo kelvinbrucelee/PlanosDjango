@@ -1,5 +1,6 @@
 {% extends 'components/base.html' %}
 
+
 {% block content %}
 <!-- ======= Pricing Section ======= -->
 <section id="pricing" class="pricing section-bg">
@@ -12,7 +13,6 @@
     </div>
     <div class="row">
       {% for plan in plans %}
-      {{plan.1}}
       <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
         {% if plan.highlight == True %}
         <div class="box featured">
