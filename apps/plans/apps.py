@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class PlanosConfig(AppConfig):
+class PlansConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.planos'
+    name = 'apps.plans'
