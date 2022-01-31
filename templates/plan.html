@@ -19,8 +19,10 @@
                 <div class="box" data-aos="fade-up" data-aos-delay="100">
                     <h3>{{ object.name }}</h3>
                     <h4>
-                        <div class="result">R$ {{ object.price_fixed }}</div><span> + {{ object.price_student }} por
-                            aluno</span>
+                        <div class="result">R$ {{ object.price_fixed }}</div>
+                        <span> + {{ object.price_student }} por aluno
+
+                        </span>
                     </h4>
                     <ul>
                         {% for functionality in object.functionalities.all %}

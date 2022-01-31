@@ -21,7 +21,10 @@
           <div class="box">
             {% endif %}
             <h3 id="plan">{{ plan }}</h3>
-            <h4><sup>R$</sup>{{ plan.price_fixed }}<span> + {{ plan.price_student }} por aluno</span></h4>
+            <h4>
+              <div>R$ {{ plan.price_fixed }}</div>
+              <span> + {{ plan.price_student }} por aluno</span>
+            </h4>
             <ul>
               {% for functionality in plan.functionalities.all %}
               {% for funcionali in functionalities %}
