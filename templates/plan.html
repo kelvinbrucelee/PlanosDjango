@@ -1,0 +1,85 @@
+{% extends 'components/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- ======= Pricing Section ======= -->
+<section id="pricing" class="pricing">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Faça uma simulação</h2>
+            <p>Software de elaboração, acompanhamento e aplicação híbrida (online e presencial) de provas, com
+                monitoramento
+                100% integrado e leitura de gabarito e ensalamento automatizados.</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="box" data-aos="fade-up" data-aos-delay="100">
+                    <h3>{{ object.name }}</h3>
+                    <h4>
+                        <div class="result">R$ {{ object.price_fixed }}</div><span> + {{ object.price_student }} por
+                            aluno</span>
+                    </h4>
+                    <ul>
+                        {% for functionality in object.functionalities.all %}
+
+                        <ul class="fa-ul">
+                            <li>
+                                <span class="fa-li">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </span>
+                                {{ functionality.name }}
+                            </li>
+                        </ul>
+                        {% endfor %}
+                        {% for functionality_extra in object.functionalities_extras.all %}
+                        <ul class="fa-ul">
+                            <li>
+                                <span class="fa-li">
+                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                </span>
+                                {{ functionality_extra.name }}
+                            </li>
+                        </ul>
+                        {% endfor %}
+                    </ul>
+                    <div class="btn-wrap">
+                        <a href="{% url 'home' %}" class="btn-buy">Voltar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="box" data-aos="fade-up" data-aos-delay="100">
+                    <h3>Calcular Valor do Plano </h3>
+                    <div class="btn-wrap">
+                        <table cellpadding="0" cellspacing="0">
+                            <input class="form-control" type="hidden" name="plan" id="plan"
+                                value="{{object.price_fixed|escape}}" />
+                            <input type="hidden" name="priceStudent" id="priceStudent"
+                                value="{{object.price_student|escape}}" />
+                            <input class="form-control" type="hidden" name="total" id="total"
+                                value="R$ {{object.price_fixed|escape}}" />
+                            <tr>
+                                <td>
+                                    <div class="btn-buy">
+                                        <label for="inputZip">Quantidade</label>
+                                        <input class="form-control" type="number" id="amount" value="0" min="0"
+                                            oninput="validity.valid||(value='');" onkeyup="calcValue()" />
+                                        <div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- End Pricing Section -->
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'assets/js/script.js' %}"></script>
+{% endblock %}
