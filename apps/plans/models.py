@@ -29,6 +29,7 @@ class Plan(Base):
     name = models.CharField('Nome',max_length=100)
     functionalities = models.ManyToManyField(Functionality, verbose_name='Funcionalidades', related_name='functionalities')
     functionalities_extras = models.ManyToManyField(Functionality, blank=True, verbose_name='Funcionalidades Extras', related_name="functionalities_extras")
+    functionalities_remove = models.ManyToManyField(Functionality, blank=True, verbose_name='Funcionalidades Removidas', related_name="functionalities_remove")
     highlight = models.BooleanField('Destaca?', default=False)
     slug = models.SlugField('Slug', max_length=100, blank=True, editable=False)
     

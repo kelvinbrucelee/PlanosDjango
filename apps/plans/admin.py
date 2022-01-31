@@ -16,7 +16,7 @@ class PlanAdmin(admin.ModelAdmin):
             'fields': ('price_fixed',)
         }),
         (None, {
-            'fields': ('functionalities', 'functionalities_extras')
+            'fields': ('functionalities', 'functionalities_extras', 'functionalities_remove')
         }),
         (None, {
             'fields': ('highlight',)

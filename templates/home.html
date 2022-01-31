@@ -1,6 +1,5 @@
 {% extends 'components/base.html' %}
 
-
 {% block content %}
 <!-- ======= Pricing Section ======= -->
 <section id="pricing" class="pricing section-bg">
@@ -49,6 +48,21 @@
                     <i class="fa fa-cart-plus" aria-hidden="true"></i>
                   </span>
                   {{ functionality_extra.name }}
+                </li>
+              </ul>
+              {% endif %}
+              {% endfor %}
+              {% endfor %}
+
+              {% for functionality_remove in plan.functionalities_remove.all %}
+              {% for funcionali in functionalities %}
+              {% if funcionali == functionality_remove %}
+              <ul class="fa-ul">
+                <li class="na">
+                  <span class="fa-li">
+                    <i class="fa fa-minus-circle"></i>
+                  </span>
+                  {{ functionality_remove.name }}
                 </li>
               </ul>
               {% endif %}
