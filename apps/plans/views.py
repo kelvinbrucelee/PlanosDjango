@@ -1,17 +1,24 @@
 from django.shortcuts import render
-from .models import Plan, Functionality
+from .models import*
 from django.views import generic
+from django.views.generic.list import ListView
+from django.shortcuts import render
+from .models import*
 
+## -- Lista de Planos -- ##
+class PlanListView(ListView):
+    model = Plan
+    template_name = "home.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['functionalities'] = Functionality.objects.all()
+        return context
 
-def home(request):
-    plans = Plan.objects.all()
-    functionalities = Functionality.objects.all()
-    context = {
-        'plans': plans,
-        'functionalities': functionalities,
-        }
-    return render(request, 'home.html', context)
-
+## -- Planos -- ##
 class PlanDetail(generic.DetailView):
     model = Plan
     template_name = "plan.html"
+
+
+

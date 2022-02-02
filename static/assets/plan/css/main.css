@@ -38,6 +38,34 @@ html {
     font-family: "Poppins", sans-serif
 }
 
+#price-fixed {
+    font-size: 25px;
+}
+
+#price-student {
+    font-size: 15px;
+    color: #878787;
+}
+
+#plan-name {
+    font-size: 20px;
+    /*text-transform: uppercase;*/
+}
+
+#btn-simulate {
+    color: #1A73E8;
+}
+
+.function {
+    font-size: 27px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-top: 50px;
+}
+
+#features {
+    margin-top: -7%;
+}
+
 label {
     max-width: 100%;
     margin-bottom: .25rem
@@ -2360,10 +2388,6 @@ progress {
 .link-success:hover,
 .link-success:focus {
     color: #146c43
-}
-
-.link-info {
-    color: #0dcaf0
 }
 
 .link-info:hover,
@@ -8888,7 +8912,7 @@ section.advance-feature-area {
 
 .plans-table table td:hover,
 .plans-table table td:hover i {
-    color: #F26526 !important
+    color: #121312 !important
 }
 
 .plans-table table td .service {
@@ -8906,7 +8930,15 @@ section.advance-feature-area {
 }
 
 .plans-table table td [class*="check"] {
-    color: #ff681b
+    color: #3fbbc0
+}
+
+.plans-table table td [class*="cart-plus"] {
+    color: #ceaa0d
+}
+
+.plans-table table td [class*="fa-times"] {
+    color: #ee3528
 }
 
 .plans-table table td [class*="info"] {
@@ -8918,7 +8950,7 @@ section.advance-feature-area {
 
 .plans-table table td [class*="info"]:hover,
 .plans-table table td [class*="info"][aria-describedby] {
-    color: #ff681b
+    color: #3fbbc0
 }
 
 .plans-table table .tooltip {
