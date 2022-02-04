@@ -13,6 +13,7 @@
 body {
     font-family: "Open Sans", sans-serif;
     color: #444444;
+    background-color: #f4f9fe
 }
 
 a {
@@ -1431,7 +1432,15 @@ section {
     overflow: hidden;
 }
 
-.pricing h3 {
+#plan-total {
+    margin-top: 10px;
+    font-weight: 400;
+    padding: 20px 15px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#plan-title {
     font-weight: 400;
     margin: -20px -20px 20px -20px;
     padding: 20px 15px;
@@ -1447,6 +1456,16 @@ section {
     font-weight: 600;
     font-family: "Poppins", sans-serif;
     margin-bottom: 20px;
+}
+
+#mod-h4 {
+    margin-top: 25px;
+    font-size: 36px;
+    color: #3fbbc0;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 20px;
+    line-height: 1.5;
 }
 
 .pricing h4 sup {
@@ -1475,9 +1494,25 @@ section {
 }
 
 .pricing ul i {
-    color: #3fbbc0;
     font-size: 18px;
     padding-right: 4px;
+}
+
+.pricing ul i:hover,
+.pricing ul i:hover i {
+    color: #121312 !important
+}
+
+.fa-times {
+    color: #ee3528
+}
+
+.fa-cart-plus {
+    color: #ceaa0d
+}
+
+.fa-check {
+    color: #3fbbc0
 }
 
 .pricing ul .na {
