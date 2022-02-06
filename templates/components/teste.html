@@ -1,59 +1,47 @@
-{% extends 'components/base.html' %}
-
-{% load static %}
-
-{% block content %}
+{% extends 'components/base.html' %} {% load static %} {% load has_functions %} {% block content %}
 
 <!-- ======= Pricing Section ======= -->
-<section id="pricing" class="pricing">
+<section id="app" class="pricing">
     <div class="container" data-aos="fade-up">
 
         <div class="section-title">
             <h2>Faça uma simulação</h2>
-            <p>Software de elaboração, acompanhamento e aplicação híbrida (online e presencial) de provas, com
-                monitoramento
-                100% integrado e leitura de gabarito e ensalamento automatizados.</p>
         </div>
         <div class="row">
             <div class="col-lg-3 col-md-6">
                 <div class="box" data-aos="fade-up" data-aos-delay="100">
-                    <h3>{{ object.name }}</h3>
+                    <h3 id="plan-title">{{ object.name }}</h3>
                     <h4>
-                        <div class="result">R$ {{ object.price_fixed }}</div>
+                        <div>R$ {{ object.price_fixed }}</div>
                         <span> + {{ object.price_student }} por aluno
                         </span>
                     </h4>
                     <ul>
-                        {% for functionality in object.functionalities.all %}
+                        {% for functionality in functionalities %} {% if object|has_functions:functionality == 1 %}
                         <ul class="fa-ul">
                             <li>
                                 <span class="fa-li">
-                                    <i class="fa fa-check" aria-hidden="true"></i>
-                                </span>
-                                {{ functionality.name }}
+                                    <td class="text-center"><i class="fa fa-check" aria-hidden="true"></i></td>
+                                </span> {{ functionality.name }}
                             </li>
                         </ul>
-                        {% endfor %}
-                        {% for functionality_extra in object.functionalities_extras.all %}
+                        {% elif object|has_functions:functionality == 2 %}
                         <ul class="fa-ul">
                             <li>
                                 <span class="fa-li">
                                     <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                                </span>
-                                {{ functionality_extra.name }}
+                                </span> {{ functionality.name }}
                             </li>
                         </ul>
-                        {% endfor %}
-                        {% for functionality_remove in object.functionalities_remove.all %}
+                        {% else %}
                         <ul class="fa-ul">
-                            <li class="na">
+                            <li>
                                 <span class="fa-li">
-                                    <i class="fa fa-minus-circle"></i>
-                                </span>
-                                {{ functionality_remove.name }}
+                                    <i id="plan-fa-times" class="fa fa-times" aria-hidden="true"></i>
+                                </span> {{ functionality.name }}
                             </li>
                         </ul>
-                        {% endfor %}
+                        {% endif %} {% endfor %}
                     </ul>
                     <div class="btn-wrap">
                         <a href="{% url 'home' %}" class="btn-buy">Voltar</a>
@@ -62,34 +50,52 @@
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="box" data-aos="fade-up" data-aos-delay="100">
-                    <h3>Calcular Valor do Plano </h3>
-                    <div class="btn-wrap">
-                        <table cellpadding="0" cellspacing="0">
-                            <input class="form-control" type="hidden" name="plan" id="plan"
-                                value="{{object.price_fixed|escape}}" />
-                            <input type="hidden" name="priceStudent" id="priceStudent"
-                                value="{{object.price_student|escape}}" />
-                            <input class="form-control" type="hidden" name="total" id="total"
-                                value="R$ {{object.price_fixed|escape}}" />
-                            <tr>
-                                <td>
-                                    <div class="btn-buy">
-                                        <label for="inputZip">Quantidade</label>
-                                        <input class="form-control" type="number" id="amount" value="0" min="0"
-                                            oninput="validity.valid||(value='');" onkeyup="calcValue()" />
-                                        <div>
-                                </td>
-                            </tr>
-                        </table>
+                    <h3 id="plan-title">Calcular Valor do Plano </h3>
+
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <div class="btn-buy">
+                                    <label for="inputZip">Quantidade de Alunos</label>
+                                    <input class="form-control" v-model="amount" type="number" min="0" />
+                                    <div>
+                            </td>
+                        </tr>
+                    </table>
+                    <h4 id="mod-h4">
+                        <h6 v-if="greet">Valor Total</h6>
+                        <div>${ greet() }</div>
+                    </h4>
+                    </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section><!-- End Pricing Section -->
+</section>
+<!-- End Pricing Section -->
 
-{% endblock %}
+{% endblock %} {% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.4/gsap.min.js"></script>
 
-{% block js %}
-<script src="{% static 'assets/js/script.js' %}"></script>
+<script>
+    var app = new Vue({
+        delimiters: ['${', '}'],
+        el: '#app',
+        data: {
+            amount: 0,
+        },
+        methods: {
+            greet() {
+                let plan = parseFloat({{object.price_fixed|escape}});
+                let priceStudent = parseFloat({{object.price_student|escape}});
+                let amount = this.amount;
+                let multiply = parseFloat(priceStudent * amount);
+
+                let total = plan + multiply;
+                
+                return total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+            }
+        },
+    })
+</script>
+<!--<script src="{% static 'assets/js/script.js' %}"></script>-->
 {% endblock js %}

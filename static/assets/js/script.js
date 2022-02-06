@@ -1,4 +1,4 @@
-var pricing = new Vue({
+var App = new Vue({
     delimiters: ['${', '}'],
     el: '#pricing',
     data: {
@@ -6,7 +6,7 @@ var pricing = new Vue({
         messageTotal: 'Valor Total',
     },
     methods: {
-        greet: function calcValue() {
+        greet() {
             document.getElementById("total").value;
             var plan = parseFloat(document.getElementById("plan").value);
             var priceStudent = parseFloat(document.getElementById("priceStudent").value);
@@ -27,5 +27,8 @@ var pricing = new Vue({
                 this.result = 'Valor Total \n' + format;
             }
         }
+    }
+    mounted() {
+
     }
 })

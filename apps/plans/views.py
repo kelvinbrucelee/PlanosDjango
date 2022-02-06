@@ -3,6 +3,7 @@ from django.views import generic
 from django.views.generic.list import ListView
 from .models import*
 
+
 ## -- Lista de Planos -- ##
 class PlanListView(ListView):
     model = Plan
@@ -21,6 +22,7 @@ class PlanDetail(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['functionalities'] = Functionality.objects.all()
+        context['plan'] = Plan.objects.all().values("name")
         return context
 
 
