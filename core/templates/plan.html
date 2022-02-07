@@ -1,4 +1,10 @@
-{% extends 'components/base.html' %} {% load static %} {% load has_functions %} {% block content %}
+{% extends 'components/base.html' %} 
+
+{% load static %} 
+
+{% load has_functions %} 
+
+{% block content %}
 
 <!-- ======= Pricing Section ======= -->
 <section id="app" class="pricing">
@@ -51,51 +57,54 @@
             <div class="col-lg-3 col-md-6">
                 <div class="box" data-aos="fade-up" data-aos-delay="100">
                     <h3 id="plan-title">Calcular Valor do Plano </h3>
-
-                    <table cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td>
-                                <div class="btn-buy">
-                                    <label for="inputZip">Quantidade de Alunos</label>
-                                    <input class="form-control" v-model="amount" type="number" min="0" />
-                                    <div>
-                            </td>
-                        </tr>
-                    </table>
-                    <h4 id="mod-h4">
-                        <h6 v-if="greet">Valor Total</h6>
-                        <div>${ greet() }</div>
-                    </h4>
+                    <div class="btn-buy">
+                        <label for="inputZip">Quantidade de Alunos</label>
+                        <input class="form-control" v-model="amount" type="number" min="0" required />
+                        <div>
+                        </div>
                     </div>
+                    <h4 id="mod-h4" v-if="greet">Valor Total</h4>
+                    <div>${ greet() }</div>
+                    <div>
+                        <h4 id="mod-h4" v-if="varification">${ result }</h4>
                     </div>
                 </div>
             </div>
 </section>
 <!-- End Pricing Section -->
 
-{% endblock %} {% block js %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.4/gsap.min.js"></script>
+{% endblock %} 
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script>
     var app = new Vue({
         delimiters: ['${', '}'],
         el: '#app',
         data: {
+            result: '',
             amount: 0,
-        },
-        methods: {
+            plan: {{object.id}},
+          },
+          computed: {
+            varification(){
+                if(this.amount != NaN) {
+                    return this.amount
+                    }
+                }
+          },
+          methods: {
             greet() {
-                let plan = parseFloat({{object.price_fixed|escape}});
-                let priceStudent = parseFloat({{object.price_student|escape}});
-                let amount = this.amount;
-                let multiply = parseFloat(priceStudent * amount);
-
-                let total = plan + multiply;
-                
-                return total.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
-            }
-        },
+            axios.get(`http://127.0.0.1:8000/api/${this.plan}/?quantidade=${this.amount}`)
+            .then(response => 
+                this.result = response.data.value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }))
+            .catch(function (error) {
+                console.log(error);
+            });
+          }
+        }
     })
 </script>
-<!--<script src="{% static 'assets/js/script.js' %}"></script>-->
 {% endblock js %}
