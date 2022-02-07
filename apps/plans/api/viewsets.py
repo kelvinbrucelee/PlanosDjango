@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
+
 class PlansViewSet(APIView):
     queryset = Plan.objects.all()
     
@@ -20,4 +21,4 @@ class PlansViewSet(APIView):
         plans = Plan.objects.all()
         serializer = PlansSerializers(plans, many=True)
         return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
-    
+            
